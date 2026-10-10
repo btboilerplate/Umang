@@ -279,14 +279,10 @@ def collect_all_slugs() -> list:
 
 
 def fetch_and_parse(slug: str):
+    detail = get_detail(slug)
     raw_path = os.path.join(OUT_DIR, f"{slug}.json")
-    if os.path.exists(raw_path):
-        with open(raw_path, encoding="utf-8") as f:
-            detail = json.load(f)
-    else:
-        detail = get_detail(slug)
-        with open(raw_path, "w", encoding="utf-8") as f:
-            json.dump(detail, f, ensure_ascii=False, indent=2)
+    with open(raw_path, "w", encoding="utf-8") as f:
+        json.dump(detail, f, ensure_ascii=False, indent=2)
     return parse_detail(detail, slug)
 
 
